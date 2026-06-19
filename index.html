@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xin chào từ nclawt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== M3 Dark Theme Tokens ===== */
+    :root {
+      --md-primary: #4FC3F7;
+      --md-on-primary: #003258;
+      --md-primary-container: #004A77;
+      --md-on-primary-container: #C6E5FF;
+      --md-secondary: #8CC9FF;
+      --md-on-secondary: #003352;
+      --md-secondary-container: #004B77;
+      --md-on-secondary-container: #C6E5FF;
+      --md-tertiary: #E7B0FF;
+      --md-surface: #1C1B1F;
+      --md-surface-dim: #141318;
+      --md-surface-container-lowest: #0F0E13;
+      --md-surface-container-low: #1E1E23;
+      --md-surface-container: #212128;
+      --md-surface-container-high: #26262E;
+      --md-surface-container-highest: #2B2B33;
+      --md-surface-variant: #44464F;
+      --md-on-surface: #E6E1E5;
+      --md-on-surface-variant: #CAC4D0;
+      --md-outline: #938F99;
+      --md-outline-variant: #44464F;
+      --md-error: #F2B8B5;
+      --md-background: #121212;
+
+      /* Elevation shadows — M3 key light / ambient */
+      --md-elevation-1: 0 1px 3px 1px rgba(0,0,0,0.15), 0 1px 2px 0 rgba(0,0,0,0.30);
+      --md-elevation-2: 0 2px 6px 2px rgba(0,0,0,0.15), 0 1px 2px 0 rgba(0,0,0,0.30);
+      --md-elevation-3: 0 4px 8px 3px rgba(0,0,0,0.15), 0 1px 3px 0 rgba(0,0,0,0.30);
+      --md-elevation-4: 0 6px 10px 4px rgba(0,0,0,0.15), 0 2px 3px 0 rgba(0,0,0,0.30);
+      --md-shape-sm: 8px;
+      --md-shape-md: 12px;
+      --md-shape-lg: 16px;
+      --md-shape-xl: 24px;
+      --md-shape-full: 9999px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', 'Google Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--md-background);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Ambient glow overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(79, 195, 247, 0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(79, 195, 247, 0.07) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(79, 195, 247, 0.05) 0%, transparent 50%);
+      animation: ambientShift 14s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes ambientShift {
+      0%   { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 1;   transform: scale(1.08); }
+    }
+
+    /* ---- Floating particles (blue tones) ---- */
+    .particles {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: var(--md-shape-full);
+      opacity: 0.20;
+      animation: floatUp linear infinite;
+    }
+
+    .particle:nth-child(1)  { width:6px; height:6px; background:#4FC3F7; left:10%; animation-duration:18s; animation-delay:0s; }
+    .particle:nth-child(2)  { width:10px;height:10px;background:#29B6F6; left:25%; animation-duration:22s; animation-delay:2s; }
+    .particle:nth-child(3)  { width:4px; height:4px; background:#81D4FA; left:40%; animation-duration:16s; animation-delay:1s; }
+    .particle:nth-child(4)  { width:8px; height:8px; background:#4FC3F7; left:55%; animation-duration:20s; animation-delay:3s; }
+    .particle:nth-child(5)  { width:5px; height:5px; background:#29B6F6; left:70%; animation-duration:14s; animation-delay:0.5s; }
+    .particle:nth-child(6)  { width:12px;height:12px;background:#0288D1; left:85%; animation-duration:24s; animation-delay:4s; }
+    .particle:nth-child(7)  { width:4px; height:4px; background:#81D4FA; left:50%; animation-duration:19s; animation-delay:1.5s; }
+    .particle:nth-child(8)  { width:7px; height:7px; background:#4FC3F7; left:15%; animation-duration:21s; animation-delay:2.5s; }
+    .particle:nth-child(9)  { width:3px; height:3px; background:#B3E5FC; left:65%; animation-duration:17s; animation-delay:0.8s; }
+    .particle:nth-child(10) { width:9px; height:9px; background:#29B6F6; left:35%; animation-duration:23s; animation-delay:3.5s; }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.25; }
+      90%  { opacity: 0.12; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* ---- Main Card (M3 elevated surface) ---- */
+    .card {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 4rem 2.8rem;
+      max-width: 520px;
+      width: calc(100% - 32px);
+      margin: 16px auto;
+      border-radius: var(--md-shape-xl);
+      background: var(--md-surface-container-low);
+      box-shadow: var(--md-elevation-3);
+      animation: fadeInUp 1s ease-out both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* ---- Logo Ring (M3 blue accent) ---- */
+    .logo-ring {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 116px;
+      height: 116px;
+      margin-bottom: 2rem;
+      border-radius: var(--md-shape-full);
+      background: rgba(79, 195, 247, 0.08);
+      border: 2px solid rgba(79, 195, 247, 0.18);
+      position: relative;
+      animation: pulseRing 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseRing {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.35),
+                    0 0 0 0 rgba(79, 195, 247, 0.12);
+      }
+      50% {
+        box-shadow: 0 0 0 14px rgba(79, 195, 247, 0),
+                    0 0 0 28px rgba(79, 195, 247, 0);
+      }
+    }
+
+    .logo-ring svg {
+      width: 60px;
+      height: 60px;
+    }
+
+    /* ---- Greeting (M3 display style) ---- */
+    .greeting {
+      font-size: 3.25rem;
+      font-weight: 700;
+      color: var(--md-on-surface);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .greeting .accent {
+      background: linear-gradient(135deg, #4FC3F7 0%, #0288D1 50%, #81D4FA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+      animation: gradientShift 5s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--md-on-surface-variant);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    /* ---- Icon Row (M3 blue-toned icons) ---- */
+    .icons-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      animation: fadeInUp 1s ease-out 0.35s both;
+    }
+
+    .icons-row .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.25s ease;
+    }
+
+    .icons-row .icon-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .icon-item svg {
+      width: 40px;
+      height: 40px;
+      opacity: 0.6;
+      transition: opacity 0.25s ease;
+    }
+
+    .icon-item:hover svg {
+      opacity: 1;
+    }
+
+    .icon-item span {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--md-on-surface-variant);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    /* ---- Divider (M3 outline style) ---- */
+    .divider {
+      width: 64px;
+      height: 1px;
+      margin: 0 auto 2rem;
+      background: var(--md-outline-variant);
+      animation: fadeInUp 1s ease-out 0.45s both;
+    }
+
+    /* ---- Status Bar (M3 elevated chip / small card) ---- */
+    .status-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.6rem 1.5rem;
+      border-radius: var(--md-shape-full);
+      background: var(--md-surface-container-highest);
+      box-shadow: var(--md-elevation-1);
+      animation: fadeInUp 1s ease-out 0.55s both;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: var(--md-shape-full);
+      background: #4FC3F7;
+      animation: blink 1.8s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(79, 195, 247, 0.6); }
+      50%      { opacity: 0.25; box-shadow: 0 0 2px rgba(79, 195, 247, 0.15); }
+    }
+
+    .status-bar span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--md-on-surface-variant);
+      letter-spacing: 0.02em;
+    }
+
+    /* ---- Bot Link (M3 filled button style) ---- */
+    .bot-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.7rem 1.6rem;
+      border-radius: var(--md-shape-full);
+      background: var(--md-primary);
+      box-shadow: var(--md-elevation-1);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--md-on-primary);
+      letter-spacing: 0.02em;
+      transition: all 0.2s ease;
+      animation: fadeInUp 1s ease-out 0.7s both;
+    }
+
+    .bot-link:hover {
+      background: #64CAF7;
+      box-shadow: var(--md-elevation-2);
+      transform: translateY(-2px);
+    }
+
+    .bot-link:active {
+      background: #39B5ED;
+      box-shadow: var(--md-elevation-1);
+      transform: translateY(0);
+    }
+
+    /* ---- Footer Credits ---- */
+    .footer-credits {
+      margin-top: 2.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--md-outline-variant);
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--md-on-surface-variant);
+      opacity: 0.5;
+      letter-spacing: 0.02em;
+      animation: fadeInUp 1s ease-out 0.85s both;
+    }
+
+    .footer-credits a {
+      color: var(--md-primary);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.25s ease;
+    }
+
+    .footer-credits a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    /* ---- Corner Decorations (M3 blue outline) ---- */
+    .corner-deco {
+      position: fixed;
+      z-index: 0;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .corner-deco.top-left    { top: -60px; left: -60px; }
+    .corner-deco.bottom-right { bottom: -60px; right: -60px; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+      .card {
+        padding: 2rem 1.5rem 2.2rem;
+        width: calc(100% - 24px);
+        border-radius: var(--md-shape-lg);
+      }
+      .greeting {
+        font-size: 2.2rem;
+      }
+      .logo-ring {
+        width: 88px;
+        height: 88px;
+      }
+      .logo-ring svg {
+        width: 44px;
+        height: 44px;
+      }
+      .icons-row {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+      }
+      .icon-item svg {
+        width: 30px;
+        height: 30px;
+      }
+      .subtitle {
+        font-size: 0.82rem;
+      }
+      .bot-link {
+        padding: 0.6rem 1.3rem;
+        font-size: 0.82rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Corner decorations -->
+  <svg class="corner-deco top-left" width="300" height="300" viewBox="0 0 300 300" fill="none">
+    <circle cx="60" cy="60" r="80" stroke="#4FC3F7" stroke-width="0.5" fill="none"/>
+    <circle cx="60" cy="60" r="140" stroke="#29B6F6" stroke-width="0.3" fill="none"/>
+    <circle cx="60" cy="60" r="30" fill="#4FC3F7" opacity="0.3"/>
+  </svg>
+
+  <svg class="corner-deco bottom-right" width="300" height="300" viewBox="0 0 300 300" fill="none">
+    <circle cx="240" cy="240" r="80" stroke="#81D4FA" stroke-width="0.5" fill="none"/>
+    <circle cx="240" cy="240" r="140" stroke="#0288D1" stroke-width="0.3" fill="none"/>
+    <circle cx="240" cy="240" r="30" fill="#81D4FA" opacity="0.3"/>
+  </svg>
+
+  <!-- Floating particles -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Main card -->
+  <div class="card">
+
+    <!-- Logo ring -->
+    <div class="logo-ring">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="28" stroke="url(#logoGrad)" stroke-width="1.5" fill="none"/>
+        <path d="M32 14 L36 28 L50 32 L36 36 L32 50 L28 36 L14 32 L28 28 Z"
+              fill="url(#logoGrad)" opacity="0.8"/>
+        <circle cx="32" cy="32" r="6" fill="#E6E1E5" opacity="0.35"/>
+        <defs>
+          <linearGradient id="logoGrad" x1="14" y1="14" x2="50" y2="50">
+            <stop offset="0%"   stop-color="#4FC3F7"/>
+            <stop offset="50%"  stop-color="#29B6F6"/>
+            <stop offset="100%" stop-color="#0288D1"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Greeting -->
+    <h1 class="greeting">
+      <span class="accent">nclawt</span> - trợ thủ đắc lực của bạn
+    </h1>
+
+    <p class="subtitle">
+      ✦ Designer &amp; Developer ✦
+    </p>
+
+    <!-- Icon row -->
+    <div class="icons-row">
+      <div class="icon-item">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="32" height="32" rx="4" stroke="#4FC3F7" stroke-width="1.8" fill="none"/>
+          <path d="M18 28 L24 18 L30 28" stroke="#4FC3F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 28 L32 28" stroke="#4FC3F7" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span>Design</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 36 L14 12 C14 10.9 14.9 10 16 10 L32 10 C33.1 10 34 10.9 34 12 L34 36 L14 36Z"
+                stroke="#29B6F6" stroke-width="1.8" fill="none"/>
+          <path d="M10 36 L38 36" stroke="#29B6F6" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M20 16 L28 16" stroke="#29B6F6" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M20 22 L28 22" stroke="#29B6F6" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M20 28 L26 28" stroke="#29B6F6" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span>Code</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="14" stroke="#81D4FA" stroke-width="1.8" fill="none"/>
+          <path d="M24 14 L24 24 L30 30" stroke="#81D4FA" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="4" fill="#81D4FA" opacity="0.5"/>
+        </svg>
+        <span>Focus</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 26 C12 18 18 12 26 12 C32 12 37 16 38 22"
+                stroke="#0288D1" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M34 26 C34 34 28 40 20 40 C14 40 9 36 8 30"
+                stroke="#0288D1" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <circle cx="14" cy="30" r="3" fill="#0288D1" opacity="0.6"/>
+          <circle cx="32" cy="22" r="3" fill="#0288D1" opacity="0.6"/>
+        </svg>
+        <span>Create</span>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Status bar -->
+    <div class="status-bar">
+      <div class="status-dot"></div>
+      <span>Sẵn sàng kết nối &bull; Open to collaborate</span>
+    </div>
+
+    <!-- Bot link -->
+    <a class="bot-link" href="https://t.me/nclawt_bot" target="_blank" rel="noopener">
+      🤖 @nclawt_bot
+    </a>
+
+    <!-- Footer credits -->
+    <div class="footer-credits">
+      Được tạo và quản lý bởi <a href="https://claw.t.me">TeleClaw</a> và <a href="https://ncatt.t.me">ncatt</a>
+    </div>
+  </div>
+
+</body>
+</html>
